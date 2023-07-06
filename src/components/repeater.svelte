@@ -1,8 +1,12 @@
 <script lang="ts">
 	type T = $$Generic;
-	export let items: T[];
+	export let items: T[] = [];
 </script>
 
-{#each items as item}
-    <slot {item} />
-{/each}
+{#if items && items.length > 0}
+	{#each items as item (item)}
+		{#if item}
+			<slot {item} />
+		{/if}
+	{/each}
+{/if}

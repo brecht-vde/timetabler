@@ -7,11 +7,11 @@ export interface Slot {
 	id: number;
 	label: string;
 	group: number;
-	day: number;
 }
 
 export interface Availability {
 	slot: number;
+	day: number;
 	available: boolean;
 }
 
@@ -20,11 +20,11 @@ export interface Therapist {
 	label: string;
 	dedicated?: number;
 	excluded?: number[];
-	availability: Availability[];
+	availabilities: Availability[];
 }
 
 export interface Patient {
 	id: number;
 	label: string;
-	availability: Availability[];
+	availabilities: Availability[];
 }
