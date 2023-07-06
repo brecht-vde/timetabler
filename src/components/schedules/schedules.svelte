@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte';
 	import { Days, Slots } from '../../data/data';
 	import type { Availability, Day, Slot } from '../../logic/types';
 	import Checkbox from '../checkbox.svelte';
@@ -31,8 +32,14 @@
 		return 'N/A';
 	};
 
-	const toggle = (day: number, slot: number) => {
-		alert(`changed slot ${day} - ${slot}`);
+	const dispatcher = createEventDispatcher();
+
+	const toggle = (day: number, slot: number, available: boolean) => {
+		dispatcher('availabilitychanged', {
+			day: day,
+			slot: slot,
+			available: available
+		});
 	};
 </script>
 
@@ -53,7 +60,7 @@
 					<td>
 						<Checkbox
 							checked={availability.available}
-							on:change={() => toggle(availability.day, availability.slot)}
+							on:change={() => toggle(availability.day, availability.slot, !availability.available)}
 						/>
 					</td>
 				{/each}

@@ -9,6 +9,10 @@
 	import { therapists } from '../stores/therapists-store';
 </script>
 
+<a href="/about">about</a>
+
+<hr />
+
 <Button on:click={() => PCreate()}>+</Button>
 
 <Repeater items={$patients} let:item={patient}>
