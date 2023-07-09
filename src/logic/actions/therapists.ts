@@ -1,9 +1,33 @@
 import { get } from 'svelte/store';
 import { therapists } from '../../stores/therapists-store';
-import type { Therapist } from '../types';
+import type { Availability, Therapist } from '../types';
+import { equals, findIndex, where } from 'ramda';
 
 const GetId: () => number = () => {
 	const index = get(therapists).length + 1;
+	return index;
+};
+
+const GetTherapistIndex = (therapists: Therapist[], id: number) => {
+	const index = findIndex(
+		where({
+			id: equals(id)
+		}),
+		therapists
+	);
+
+	return index;
+};
+
+const GetAvailabilityIndex = (availabiltities: Availability[], day: number, slot: number) => {
+	const index = findIndex(
+		where({
+			day: equals(day),
+			slot: equals(slot)
+		}),
+		availabiltities
+	);
+
 	return index;
 };
 
@@ -49,5 +73,27 @@ export const Create = (name?: string) => {
 
 	therapists.update((ta) => {
 		return [...ta, therapist];
+	});
+};
+
+export const UpdateAvailability = (
+	patientId: number,
+	dayId: number,
+	slotId: number,
+	value: boolean
+) => {
+	const patientsArray = get(therapists);
+	const pix = GetTherapistIndex(patientsArray, patientId);
+
+	if (pix < 0) return;
+
+	const availabilitiesArray = patientsArray[pix].availabilities;
+	const aix = GetAvailabilityIndex(availabilitiesArray, dayId, slotId);
+
+	if (aix < 0) return;
+
+	therapists.update((ta) => {
+		ta[pix].availabilities[aix].available = value;
+		return ta;
 	});
 };

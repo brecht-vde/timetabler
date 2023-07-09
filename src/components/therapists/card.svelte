@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { UpdateAvailability } from '../../logic/actions/therapists';
 	import type { Therapist } from '../../logic/types';
 	import Schedules from '../schedules/schedules.svelte';
 
@@ -7,9 +8,7 @@
 	const OnAvailabilityChanged = (
 		e: CustomEvent<{ day: number; slot: number; available: boolean }>
 	) => {
-		alert(
-			`Thera: ${therapist.id} - D: ${e.detail.day} - S: ${e.detail.slot} - A: ${e.detail.available}`
-		);
+		UpdateAvailability(therapist.id, e.detail.day, e.detail.slot, e.detail.available);
 	};
 </script>
 

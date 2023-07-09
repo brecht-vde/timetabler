@@ -7,9 +7,11 @@
 	import { Create as TCreate } from '../logic/actions/therapists';
 	import { patients } from '../stores/patients-store';
 	import { therapists } from '../stores/therapists-store';
+	import Planning from '../components/planning/planning.svelte';
 </script>
 
 <a href="/about">about</a>
+<a href="/planning">planning</a>
 
 <hr />
 
@@ -26,3 +28,7 @@
 <Repeater items={$therapists} let:item={therapist}>
 	<TCard {therapist} />
 </Repeater>
+
+<hr />
+
+<Planning />

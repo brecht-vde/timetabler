@@ -28,3 +28,9 @@ export interface Patient {
 	label: string;
 	availabilities: Availability[];
 }
+
+export interface Planning {
+	id: number;
+	label: string;
+	values: string[][];
+}
