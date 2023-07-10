@@ -111,7 +111,7 @@ export class Algorithm {
 
 					// check if the therapist has a dedicated patient
 					const dedicated = isNotNil(therapist?.dedicated)
-						? filter((p: Permutation) => p.therapist === therapist.dedicated, subset)
+						? filter((p: Permutation) => p.patient === therapist.dedicated, subset)
 						: [];
 
 					// select a permutation to assign
@@ -185,7 +185,7 @@ export class Algorithm {
 
 		single = [...single, ...unavailable];
 
-		// add unavailable slots to the array
+		// add unassigned slots to the array
 		for (const slot of this._slots) {
 			for (const therapist of this._therapists) {
 				if (none((g: Gene) => g.slot === slot.id && g.therapist === therapist.id, single)) {
