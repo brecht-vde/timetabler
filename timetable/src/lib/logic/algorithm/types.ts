@@ -1,9 +1,5 @@
-export interface Genome {
-	unassigned: number[];
-	individual: Chromosome;
-}
-
 export interface Chromosome {
+	unassigned: number[];
 	genes: Gene[];
 }
 

@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { Algorithm } from '$lib/logic/algorithm/algorithm';
-	import type { Genome } from '$lib/logic/algorithm/types';
+	import { Algorithm } from '$lib/logic/algorithm/algorithmv2';
+	import type { Chromosome } from '$lib/logic/algorithm/types';
 	import type { Patient, Slot, Therapist } from '$lib/logic/domain/types';
 
 	const slots: Slot[] = [
@@ -294,7 +294,7 @@
 	];
 
 	const algorithm: Algorithm = new Algorithm(slots, therapists, patients);
-	const genome: Genome = algorithm.execute();
+	const chromosome: Chromosome = algorithm.execute();
 </script>
 
 <div class="container h-full mx-auto flex justify-center items-center">
@@ -317,12 +317,12 @@
 		<div>
 			<h1>genes</h1>
 
-			{#each genome.individual.genes as gene}
+			{#each chromosome.genes as gene}
 				<p>{gene.slot} - {gene.therapist} - {gene.patient}</p>
 			{/each}
 
 			<h1>unassigned</h1>
-			{#each genome.unassigned as unassigned}
+			{#each chromosome.unassigned as unassigned}
 				<p>{unassigned}</p>
 			{/each}
 		</div>
