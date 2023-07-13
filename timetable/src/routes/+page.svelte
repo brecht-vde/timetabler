@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Algorithm } from '$lib/logic/algorithm/algorithmv2';
+	import { Algorithm } from '$lib/logic/algorithm/algorithm';
 	import type { Chromosome } from '$lib/logic/algorithm/types';
 	import type { Patient, Slot, Therapist } from '$lib/logic/domain/types';
 
@@ -59,17 +59,17 @@
 				{
 					day: 1,
 					slot: 4,
-					available: true
+					available: false
 				},
 				{
 					day: 1,
 					slot: 5,
-					available: true
+					available: false
 				},
 				{
 					day: 1,
 					slot: 6,
-					available: true
+					available: false
 				}
 			]
 		},
@@ -105,15 +105,50 @@
 				{
 					day: 1,
 					slot: 6,
+					available: false
+				}
+			]
+		},
+		{
+			id: 3,
+			label: 'T3',
+			availabilities: [
+				{
+					day: 1,
+					slot: 1,
+					available: false
+				},
+				{
+					day: 1,
+					slot: 2,
+					available: false
+				},
+				{
+					day: 1,
+					slot: 3,
+					available: false
+				},
+				{
+					day: 1,
+					slot: 4,
+					available: true
+				},
+				{
+					day: 1,
+					slot: 5,
+					available: true
+				},
+				{
+					day: 1,
+					slot: 6,
 					available: true
 				}
 			]
-		}
-	];
-	const patients: Patient[] = [
+		},
 		{
-			id: 1,
-			label: 'P1',
+			id: 4,
+			label: 'T4',
+			dedicated: 1,
 			availabilities: [
 				{
 					day: 1,
@@ -124,6 +159,82 @@
 					day: 1,
 					slot: 2,
 					available: true
+				},
+				{
+					day: 1,
+					slot: 3,
+					available: true
+				},
+				{
+					day: 1,
+					slot: 4,
+					available: true
+				},
+				{
+					day: 1,
+					slot: 5,
+					available: true
+				},
+				{
+					day: 1,
+					slot: 6,
+					available: true
+				}
+			]
+		},
+		{
+			id: 5,
+			label: 'T5',
+			dedicated: 2,
+			availabilities: [
+				{
+					day: 1,
+					slot: 1,
+					available: true
+				},
+				{
+					day: 1,
+					slot: 2,
+					available: true
+				},
+				{
+					day: 1,
+					slot: 3,
+					available: true
+				},
+				{
+					day: 1,
+					slot: 4,
+					available: true
+				},
+				{
+					day: 1,
+					slot: 5,
+					available: true
+				},
+				{
+					day: 1,
+					slot: 6,
+					available: true
+				}
+			]
+		}
+	];
+
+	const patients: Patient[] = [
+		{
+			id: 1,
+			label: 'P1',
+			availabilities: [
+				{
+					day: 1,
+					slot: 1,
+					available: false
+				},
+				{
+					day: 1,
+					slot: 2,
+					available: false
 				},
 				{
 					day: 1,
@@ -164,12 +275,12 @@
 				{
 					day: 1,
 					slot: 3,
-					available: true
+					available: false
 				},
 				{
 					day: 1,
 					slot: 4,
-					available: true
+					available: false
 				},
 				{
 					day: 1,
@@ -195,7 +306,7 @@
 				{
 					day: 1,
 					slot: 2,
-					available: true
+					available: false
 				},
 				{
 					day: 1,
@@ -226,12 +337,12 @@
 				{
 					day: 1,
 					slot: 1,
-					available: true
+					available: false
 				},
 				{
 					day: 1,
 					slot: 2,
-					available: true
+					available: false
 				},
 				{
 					day: 1,
@@ -241,7 +352,7 @@
 				{
 					day: 1,
 					slot: 4,
-					available: true
+					available: false
 				},
 				{
 					day: 1,
@@ -267,12 +378,12 @@
 				{
 					day: 1,
 					slot: 2,
-					available: true
+					available: false
 				},
 				{
 					day: 1,
 					slot: 3,
-					available: true
+					available: false
 				},
 				{
 					day: 1,
@@ -290,11 +401,86 @@
 					available: true
 				}
 			]
+		},
+		{
+			id: 6,
+			label: 'P6',
+			availabilities: [
+				{
+					day: 1,
+					slot: 1,
+					available: true
+				},
+				{
+					day: 1,
+					slot: 2,
+					available: true
+				},
+				{
+					day: 1,
+					slot: 3,
+					available: false
+				},
+				{
+					day: 1,
+					slot: 4,
+					available: true
+				},
+				{
+					day: 1,
+					slot: 5,
+					available: false
+				},
+				{
+					day: 1,
+					slot: 6,
+					available: true
+				}
+			]
+		},
+		{
+			id: 7,
+			label: 'P7',
+			availabilities: [
+				{
+					day: 1,
+					slot: 1,
+					available: false
+				},
+				{
+					day: 1,
+					slot: 2,
+					available: true
+				},
+				{
+					day: 1,
+					slot: 3,
+					available: true
+				},
+				{
+					day: 1,
+					slot: 4,
+					available: true
+				},
+				{
+					day: 1,
+					slot: 5,
+					available: false
+				},
+				{
+					day: 1,
+					slot: 6,
+					available: true
+				}
+			]
 		}
 	];
 
+	console.time('algo');
 	const algorithm: Algorithm = new Algorithm(slots, therapists, patients);
-	const chromosome: Chromosome = algorithm.execute();
+	const chromosome: Chromosome = algorithm.execute(50);
+	const grid = algorithm.toTable(chromosome);
+	console.timeEnd('algo');
 </script>
 
 <div class="container h-full mx-auto flex justify-center items-center">
@@ -316,15 +502,24 @@
 		</ul>
 		<div>
 			<h1>genes</h1>
+			<table>
+				{#each grid as rows}
+				<tr>
+					{#each rows as cell}
+						<td>{cell}</td>
+					{/each}
+				</tr>
+				{/each}
+			</table>
 
-			{#each chromosome.genes as gene}
+			<!-- {#each chromosome.genes as gene}
 				<p>{gene.slot} - {gene.therapist} - {gene.patient}</p>
 			{/each}
 
 			<h1>unassigned</h1>
 			{#each chromosome.unassigned as unassigned}
 				<p>{unassigned}</p>
-			{/each}
+			{/each} -->
 		</div>
 	</div>
 </div>

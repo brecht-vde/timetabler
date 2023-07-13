@@ -1,4 +1,4 @@
-import { filter, isNotNil, map, none, pipe, without } from 'ramda';
+import { filter, isNotNil, none, pipe, without } from 'ramda';
 import type { Combination, Gene, Permutation } from '../types';
 import { getAlreadyAssignedTherapistPatientCombinations } from './combinations';
 import type { Patient, Slot, Therapist } from '$lib/logic/domain/types';
@@ -21,13 +21,11 @@ export const getAllPermutations = (
 };
 
 export const getPositioningPermutations = (genes: Gene[], permutations: Permutation[]) => {
-	const positioning = pipe(
-		filter((g: Gene) => g.patient < -2),
-		map((g: Gene) => g.therapist)
-	)(genes);
+	const alreadyPositioning = filter((g: Gene) => g.patient < -2, genes);
 
 	const subset = filter(
-		(p: Permutation) => none((tid: number) => p.therapist === tid, positioning),
+		(p: Permutation) =>
+			none((g: Gene) => p.therapist === g.therapist && p.patient < -2, alreadyPositioning),
 		permutations
 	);
 

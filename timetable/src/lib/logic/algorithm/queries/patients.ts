@@ -14,6 +14,18 @@ import {
 	without
 } from 'ramda';
 
+export const findPatientName = (patients: Patient[], id: number) => {
+	if (id === -1) return 'X';
+	if (id === -2) return 'O';
+	if (id < -2) return 'P';
+
+	const patient = find((p: Patient) => p.id === id, patients);
+
+	if (isNil(patient)) return 'Invalid';
+
+	return patient.label;
+};
+
 export const getPatientIds = (patients: Patient[]) => {
 	return map((p: Patient) => p.id, patients);
 };
