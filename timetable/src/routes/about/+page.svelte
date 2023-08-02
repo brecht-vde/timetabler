@@ -1,10 +1,8 @@
 <script lang="ts">
 	import { Algorithm } from '$lib/logic/algorithmv2/algorithm';
-	import { PermutationHandler } from '$lib/logic/algorithmv2/permutation-handler';
 	import type { Permutation, Solution } from '$lib/logic/algorithmv2/types';
-	import { isPatient } from '$lib/logic/algorithmv2/utilities';
+	import { isPatient } from '$lib/logic/algorithmv2/permutations/utilities';
 	import type { Patient, Slot, Therapist } from '$lib/logic/domain/types';
-	import { json } from '@sveltejs/kit';
 	import { map } from 'ramda';
 
 	const slots: Slot[] = [
@@ -753,6 +751,15 @@
 	);
 </script>
 
+<p>score: {items.fitness}</p>
+<p>unassigned:</p>
+{#each items.unassigned as unassigned}
+	<p>{unassigned.label}</p>
+{/each}
+<p>insufficient:</p>
+{#each items.insufficient as insufficient}
+	<p>{insufficient.label}</p>
+{/each}
 {#each mapped as value}
 	<p>{value}</p>
 {/each}

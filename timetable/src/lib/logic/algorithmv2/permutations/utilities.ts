@@ -2,20 +2,17 @@ import {
 	any,
 	ascend,
 	count,
-	countBy,
 	defaultTo,
 	either,
 	filter,
-	forEach,
-	groupBy,
 	isEmpty,
 	isNil,
 	map,
 	sortWith,
 	uniq
 } from 'ramda';
-import type { Availability, Patient, Slot, Therapist } from '../domain/types';
-import type { Permutation } from './types';
+import type { Availability, Patient, Slot, Therapist } from '../../domain/types';
+import type { Permutation } from '../types';
 
 export const isAvailable = (slot: Slot, availabilities: Availability[]) =>
 	any((a: Availability) => a.slot === slot.id && a.available, availabilities);
