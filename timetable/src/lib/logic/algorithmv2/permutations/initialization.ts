@@ -1,35 +1,50 @@
-import type { Patient, Slot, Therapist } from '$lib/logic/domain/types';
+import type { Day, Patient, Slot, Therapist } from '$lib/logic/domain/types';
 import { forEach } from 'ramda';
 import type { Permutation } from '../types';
 import { isAvailable, isExcluded } from './utilities';
 
-const initializePermutations = (slots: Slot[], therapists: Therapist[], patients: Patient[]) => {
+const initializePermutations = (
+	days: Day[],
+	slots: Slot[],
+	therapists: Therapist[],
+	patients: Patient[]
+) => {
 	const permutations: Permutation[] = [];
 
 	forEach(
-		(s: Slot) =>
-			forEach((t: Therapist) => {
-				const patientPermutations = initializePatientPermutations(s, t, patients);
-				const positioningPermutations = initializePositioningPermutations(s, t);
-				permutations.push(...patientPermutations);
-				permutations.push(...positioningPermutations);
-			}, therapists),
-		slots
+		(d: Day) =>
+			forEach(
+				(s: Slot) =>
+					forEach((t: Therapist) => {
+						const patientPermutations = initializePatientPermutations(d, s, t, patients);
+						const positioningPermutations = initializePositioningPermutations(d, s, t);
+						permutations.push(...patientPermutations);
+						permutations.push(...positioningPermutations);
+					}, therapists),
+				slots
+			),
+		days
 	);
 
 	return permutations;
 };
 
-const initializePatientPermutations = (slot: Slot, therapist: Therapist, patients: Patient[]) => {
+const initializePatientPermutations = (
+	day: Day,
+	slot: Slot,
+	therapist: Therapist,
+	patients: Patient[]
+) => {
 	const permutations: Permutation[] = [];
 
 	forEach((p: Patient) => {
 		if (
-			isAvailable(slot, therapist.availabilities) &&
-			isAvailable(slot, p.availabilities) &&
+			isAvailable(day, slot, therapist.availabilities) &&
+			isAvailable(day, slot, p.availabilities) &&
 			!isExcluded(therapist, p)
 		) {
 			permutations.push({
+				day: day,
 				group: slot.group,
 				slot: slot,
 				therapist: therapist,
@@ -41,11 +56,12 @@ const initializePatientPermutations = (slot: Slot, therapist: Therapist, patient
 	return permutations;
 };
 
-const initializePositioningPermutations = (slot: Slot, therapist: Therapist) => {
+const initializePositioningPermutations = (day: Day, slot: Slot, therapist: Therapist) => {
 	const permutations: Permutation[] = [];
 
-	if (isAvailable(slot, therapist.availabilities)) {
+	if (isAvailable(day, slot, therapist.availabilities)) {
 		permutations.push({
+			day: day,
 			group: slot.group,
 			slot: slot,
 			therapist: therapist,

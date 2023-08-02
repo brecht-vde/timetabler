@@ -2,8 +2,31 @@
 	import { Algorithm } from '$lib/logic/algorithmv2/algorithm';
 	import type { Permutation, Solution } from '$lib/logic/algorithmv2/types';
 	import { isPatient } from '$lib/logic/algorithmv2/permutations/utilities';
-	import type { Patient, Slot, Therapist } from '$lib/logic/domain/types';
+	import type { Day, Patient, Slot, Therapist } from '$lib/logic/domain/types';
 	import { map } from 'ramda';
+
+	const days: Day[] = [
+		{
+			id: 1,
+			label: 'M'
+		},
+		{
+			id: 2,
+			label: 'T'
+		},
+		{
+			id: 3,
+			label: 'W'
+		},
+		{
+			id: 4,
+			label: 'T'
+		},
+		{
+			id: 5,
+			label: 'F'
+		}
+	];
 
 	const slots: Slot[] = [
 		{
@@ -737,8 +760,8 @@
 	// ];
 
 	console.time('handle');
-	const algo = new Algorithm(slots, therapists, patients);
-	const items: Solution = algo.execute(100);
+	const algo = new Algorithm(days, slots, therapists, patients);
+	const items: Solution = algo.execute(days[1], 100);
 	items.permutations;
 	console.timeEnd('handle');
 
@@ -751,6 +774,7 @@
 	);
 </script>
 
+<p>day: {items.day.label}</p>
 <p>score: {items.fitness}</p>
 <p>unassigned:</p>
 {#each items.unassigned as unassigned}

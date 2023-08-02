@@ -1,6 +1,7 @@
-import type { Patient, Slot, Therapist } from '../domain/types';
+import type { Day, Patient, Slot, Therapist } from '../domain/types';
 
 export interface Permutation {
+	day: Day;
 	group: number;
 	slot: Slot;
 	therapist: Therapist;
@@ -8,6 +9,7 @@ export interface Permutation {
 }
 
 export interface Solution {
+	day: Day;
 	permutations: Permutation[];
 	unassigned: Patient[];
 	insufficient: Patient[];

@@ -11,11 +11,11 @@ import {
 	sortWith,
 	uniq
 } from 'ramda';
-import type { Availability, Patient, Slot, Therapist } from '../../domain/types';
+import type { Availability, Day, Patient, Slot, Therapist } from '../../domain/types';
 import type { Permutation } from '../types';
 
-export const isAvailable = (slot: Slot, availabilities: Availability[]) =>
-	any((a: Availability) => a.slot === slot.id && a.available, availabilities);
+export const isAvailable = (day: Day, slot: Slot, availabilities: Availability[]) =>
+	any((a: Availability) => a.day === day.id && a.slot === slot.id && a.available, availabilities);
 
 export const isExcluded = (therapist: Therapist, patient: Patient) =>
 	any((e: number) => e === patient.id, defaultTo([], therapist.excluded));

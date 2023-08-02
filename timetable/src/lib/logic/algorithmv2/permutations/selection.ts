@@ -1,4 +1,4 @@
-import type { Patient, Slot, Therapist } from '$lib/logic/domain/types';
+import type { Day, Patient, Slot, Therapist } from '$lib/logic/domain/types';
 import { any, either, filter, forEach, isEmpty, isNil } from 'ramda';
 import type { Permutation } from '../types';
 import {
@@ -13,6 +13,7 @@ import {
 } from './utilities';
 
 const selectPermutations = (
+	day: Day,
 	groups: number[],
 	slots: Slot[],
 	therapists: Therapist[],
@@ -20,10 +21,10 @@ const selectPermutations = (
 ) => {
 	const combined: Permutation[] = [];
 
-	const selection = selectPatientPermutations(groups, slots, therapists, permutations);
+	const selection = selectPatientPermutations(day, groups, slots, therapists, permutations);
 	combined.push(...selection);
 
-	const remaining = fillPermutations(slots, therapists, selection);
+	const remaining = fillPermutations(day, slots, therapists, selection);
 	combined.push(...remaining);
 
 	const sorted = sortBySlotThenByTherapist(combined);
@@ -32,6 +33,7 @@ const selectPermutations = (
 };
 
 const selectPatientPermutations = (
+	day: Day,
 	groups: number[],
 	slots: Slot[],
 	therapists: Therapist[],
@@ -44,7 +46,7 @@ const selectPatientPermutations = (
 
 		for (let index = 0; index < slotsCount; index++) {
 			forEach((t: Therapist) => {
-				const selected = findPermutation(g, t, permutations, selection);
+				const selected = findPermutation(day, g, t, permutations, selection);
 				if (selected) selection.push(selected);
 			}, therapists);
 		}
@@ -54,6 +56,7 @@ const selectPatientPermutations = (
 };
 
 const findPermutation = (
+	day: Day,
 	group: number,
 	therapist: Therapist,
 	permutations: Permutation[],
@@ -61,16 +64,17 @@ const findPermutation = (
 ) => {
 	let found: Permutation | null = null;
 
-	found = findDedicated(group, therapist, permutations, selection);
+	found = findDedicated(day, group, therapist, permutations, selection);
 
 	if (found) return found;
 
-	found = findAny(group, therapist, permutations, selection);
+	found = findAny(day, group, therapist, permutations, selection);
 
 	return found;
 };
 
 const findDedicated = (
+	day: Day,
 	group: number,
 	therapist: Therapist,
 	permutations: Permutation[],
@@ -81,6 +85,7 @@ const findDedicated = (
 	const filtered = filter(
 		(p: Permutation) =>
 			!isDedicatedAssigned(selection, therapist) &&
+			p.day.id === day.id &&
 			p.group === group &&
 			p.therapist.id === therapist.id &&
 			isPatient(p.session) &&
@@ -93,6 +98,7 @@ const findDedicated = (
 };
 
 const findAny = (
+	day: Day,
 	group: number,
 	therapist: Therapist,
 	permutations: Permutation[],
@@ -100,8 +106,9 @@ const findAny = (
 ) => {
 	const filtered = filter(
 		(p: Permutation) =>
+			p.day.id === day.id &&
 			p.group === group &&
-			p.therapist === therapist &&
+			p.therapist.id === therapist.id &&
 			!IsPatientAssignedForGroup(selection, p.session, group) &&
 			!IsSessionAssignedForTherapist(selection, p.session, therapist) &&
 			!IsSlotAssigned(selection, therapist, p.slot) &&
@@ -118,7 +125,12 @@ const findRandom = (permutations: Permutation[]) =>
 		? null
 		: permutations[Math.floor(Math.random() * permutations.length)];
 
-const fillPermutations = (slots: Slot[], therapists: Therapist[], selection: Permutation[]) => {
+const fillPermutations = (
+	day: Day,
+	slots: Slot[],
+	therapists: Therapist[],
+	selection: Permutation[]
+) => {
 	const filled: Permutation[] = [];
 	const workset: Permutation[] = [];
 	workset.push(...selection);
@@ -126,14 +138,14 @@ const fillPermutations = (slots: Slot[], therapists: Therapist[], selection: Per
 	forEach(
 		(s: Slot) =>
 			forEach((t: Therapist) => {
-				const unavailable = fillUnavailablePermutation(s, t);
+				const unavailable = fillUnavailablePermutation(day, s, t);
 
 				if (unavailable) {
 					workset.push(unavailable);
 					filled.push(unavailable);
 				}
 
-				const open = fillOpenPermutation(s, t, workset);
+				const open = fillOpenPermutation(day, s, t, workset);
 
 				if (open) {
 					workset.push(open);
@@ -146,10 +158,15 @@ const fillPermutations = (slots: Slot[], therapists: Therapist[], selection: Per
 	return filled;
 };
 
-const fillUnavailablePermutation = (slot: Slot, therapist: Therapist): Permutation | null =>
-	isAvailable(slot, therapist.availabilities)
+const fillUnavailablePermutation = (
+	day: Day,
+	slot: Slot,
+	therapist: Therapist
+): Permutation | null =>
+	isAvailable(day, slot, therapist.availabilities)
 		? null
 		: {
+				day: day,
 				group: slot.group,
 				slot: slot,
 				therapist: therapist,
@@ -157,13 +174,19 @@ const fillUnavailablePermutation = (slot: Slot, therapist: Therapist): Permutati
 		  };
 
 const fillOpenPermutation = (
+	day: Day,
 	slot: Slot,
 	therapist: Therapist,
 	selection: Permutation[]
 ): Permutation | null =>
-	any((p: Permutation) => p.slot === slot && p.therapist === therapist, selection)
+	any(
+		(p: Permutation) =>
+			p.day.id === day.id && p.slot.id === slot.id && p.therapist.id === therapist.id,
+		selection
+	)
 		? null
 		: {
+				day: day,
 				group: slot.group,
 				slot: slot,
 				therapist: therapist,
