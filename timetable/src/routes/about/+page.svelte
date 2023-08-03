@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Algorithm } from '$lib/logic/algorithmv2/algorithm';
-	import type { Permutation, Solution } from '$lib/logic/algorithmv2/types';
+	import type { Permutation, Planning } from '$lib/logic/algorithmv2/types';
 	import { isPatient } from '$lib/logic/algorithmv2/permutations/utilities';
 	import type { Day, Patient, Slot, Therapist } from '$lib/logic/domain/types';
 	import { map } from 'ramda';
@@ -761,29 +761,42 @@
 
 	console.time('handle');
 	const algo = new Algorithm(days, slots, therapists, patients);
-	const items: Solution = algo.execute(days[1], 100);
-	items.permutations;
+	const planning: Planning = algo.execute(days[0], 250);
 	console.timeEnd('handle');
-
-	const mapped = map(
-		(p: Permutation) =>
-			`${p.slot.label} - ${p.therapist.label} - ${
-				isPatient(p.session) ? (p.session as Patient).label : p.session
-			}`,
-		items.permutations
-	);
 </script>
 
-<p>day: {items.day.label}</p>
-<p>score: {items.fitness}</p>
-<p>unassigned:</p>
-{#each items.unassigned as unassigned}
-	<p>{unassigned.label}</p>
-{/each}
-<p>insufficient:</p>
-{#each items.insufficient as insufficient}
-	<p>{insufficient.label}</p>
-{/each}
-{#each mapped as value}
-	<p>{value}</p>
-{/each}
+<p>day: {planning.day}</p>
+<p>fitness: {planning.fitness}</p>
+<p>
+	unassigned:
+	{#each planning.unassigned as unassigned}
+		<span>{unassigned}, </span>
+	{/each}
+</p>
+<p>
+	insufficient:
+	{#each planning.insufficient as insufficient}
+		<span>{insufficient}, </span>
+	{/each}
+</p>
+
+<table>
+	<thead>
+		<tr>
+			<th />
+			{#each planning.data.columns as column}
+				<th>{column}</th>
+			{/each}
+		</tr>
+	</thead>
+	<tbody>
+		{#each planning.data.rows as row}
+			<tr>
+				<th>{row}</th>
+				{#each planning.data.columns as column}
+					<td>{planning.data.cells[row][column]}</td>
+				{/each}
+			</tr>
+		{/each}
+	</tbody>
+</table>

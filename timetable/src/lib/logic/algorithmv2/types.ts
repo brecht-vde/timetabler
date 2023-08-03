@@ -8,10 +8,22 @@ export interface Permutation {
 	session: Patient | string;
 }
 
-export interface Solution {
-	day: Day;
-	permutations: Permutation[];
-	unassigned: Patient[];
-	insufficient: Patient[];
+export interface Planning {
+	day: string;
+	data: Grid;
+	unassigned: string[];
+	insufficient: string[];
 	fitness: number;
+}
+
+export interface Grid {
+	columns: string[];
+	rows: string[];
+	cells: Cells;
+}
+
+export interface Cells {
+	[row: string]: {
+		[column: string]: string;
+	};
 }

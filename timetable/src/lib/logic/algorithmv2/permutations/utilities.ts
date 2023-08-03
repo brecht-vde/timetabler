@@ -73,12 +73,12 @@ export const sortBySlotThenByTherapist = (permutations: Permutation[]) =>
 		permutations
 	);
 
-export const getPatientsWithLessOccurencesThan = (
+export const getPatientsByOccurences = (
 	patients: Patient[],
 	permutations: Permutation[],
 	occurences: number
 ) =>
 	filter(
-		(p: Patient) => count((pe: Permutation) => pe.session === p, permutations) < occurences,
+		(p: Patient) => count((pe: Permutation) => pe.session === p, permutations) === occurences,
 		patients
 	);

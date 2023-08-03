@@ -1,10 +1,11 @@
 import { descend, isNotNil, sortWith } from 'ramda';
 import type { Day, Patient, Slot, Therapist } from '../domain/types';
-import { getGroups, getPatientsWithLessOccurencesThan } from './permutations/utilities';
-import type { Permutation, Solution } from './types';
+import { getGroups, getPatientsByOccurences } from './permutations/utilities';
+import type { Permutation, Planning } from './types';
 import initializePermutations from './permutations/initialization';
 import selectPermutations from './permutations/selection';
 import calculateFitness from './permutations/fitness';
+import mapToPlanning from './permutations/mapping';
 
 export class Algorithm {
 	private readonly _days: Day[];
@@ -29,18 +30,18 @@ export class Algorithm {
 	}
 
 	public execute(day: Day, iterations: number) {
-		const solutions: Solution[] = [];
+		const plannings: Planning[] = [];
 
 		for (let index = 0; index < iterations; index++) {
-			const solution = this.generateSolution(day);
-			solutions.push(solution);
+			const planning = this.generatePlanning(day);
+			plannings.push(planning);
 		}
 
-		const fittest = sortWith([descend((s: Solution) => s.fitness)], solutions);
+		const fittest = sortWith([descend((s: Planning) => s.fitness)], plannings);
 		return fittest[0];
 	}
 
-	private generateSolution(day: Day) {
+	private generatePlanning(day: Day) {
 		const permutations = selectPermutations(
 			day,
 			this._groups,
@@ -49,20 +50,14 @@ export class Algorithm {
 			this._permutations
 		);
 
-		const unassigned = getPatientsWithLessOccurencesThan(this._patients, permutations, 1);
+		const unassigned = getPatientsByOccurences(this._patients, permutations, 0);
 
-		const insufficient = getPatientsWithLessOccurencesThan(this._patients, permutations, 2);
+		const insufficient = getPatientsByOccurences(this._patients, permutations, 1);
 
 		const fitness = calculateFitness(unassigned, insufficient, permutations);
 
-		const solution: Solution = {
-			day: day,
-			fitness: fitness,
-			insufficient: insufficient,
-			permutations: permutations,
-			unassigned: unassigned
-		};
+		const planning = mapToPlanning(day, fitness, permutations, insufficient, unassigned);
 
-		return solution;
+		return planning;
 	}
 }
