@@ -1,7 +1,32 @@
 <script lang="ts">
-	import { Algorithm } from '$lib/logic/algorithm/algorithm';
-	import type { Chromosome } from '$lib/logic/algorithm/types';
-	import type { Patient, Slot, Therapist } from '$lib/logic/domain/types';
+	import { Algorithm } from '$lib/logic/algorithmv2/algorithm';
+	import type { Permutation, Planning } from '$lib/logic/algorithmv2/types';
+	import { isPatient } from '$lib/logic/algorithmv2/permutations/utilities';
+	import type { Day, Patient, Slot, Therapist } from '$lib/logic/domain/types';
+	import { map } from 'ramda';
+
+	const days: Day[] = [
+		{
+			id: 1,
+			label: 'M'
+		},
+		{
+			id: 2,
+			label: 'T'
+		},
+		{
+			id: 3,
+			label: 'W'
+		},
+		{
+			id: 4,
+			label: 'T'
+		},
+		{
+			id: 5,
+			label: 'F'
+		}
+	];
 
 	const slots: Slot[] = [
 		{
@@ -476,50 +501,44 @@
 		}
 	];
 
-	console.time('algo');
-	const algorithm: Algorithm = new Algorithm(slots, therapists, patients);
-	const chromosome: Chromosome = algorithm.execute(50);
-	const grid = algorithm.toTable(chromosome);
-	console.timeEnd('algo');
+	console.time('handle');
+	const algo = new Algorithm(days, slots, therapists, patients);
+	const planning: Planning = algo.execute(days[0], 250);
+	console.timeEnd('handle');
 </script>
 
-<div class="container h-full mx-auto flex justify-center items-center">
-	<div class="space-y-5">
-		<h1 class="h1">Let's get cracking bones!</h1>
-		<p>Start by exploring:</p>
-		<ul>
-			<li>
-				<code class="code">/src/routes/+layout.svelte</code> - barebones layout, the CSS import order
-				is critical!
-			</li>
-			<li>
-				<code class="code">/src/app.postcss</code> - minimal css to make the page full screen, may not
-				be relevant for your project
-			</li>
-			<li>
-				<code class="code">/src/routes/+page.svelte</code> - this page, you can replace the contents
-			</li>
-		</ul>
-		<div>
-			<h1>genes</h1>
-			<table>
-				{#each grid as rows}
-				<tr>
-					{#each rows as cell}
-						<td>{cell}</td>
-					{/each}
-				</tr>
-				{/each}
-			</table>
+<p>day: {planning.day}</p>
+<p>fitness: {planning.fitness}</p>
+<p>
+	unassigned:
+	{#each planning.unassigned as unassigned}
+		<span>{unassigned}, </span>
+	{/each}
+</p>
+<p>
+	insufficient:
+	{#each planning.insufficient as insufficient}
+		<span>{insufficient}, </span>
+	{/each}
+</p>
 
-			<!-- {#each chromosome.genes as gene}
-				<p>{gene.slot} - {gene.therapist} - {gene.patient}</p>
+<table>
+	<thead>
+		<tr>
+			<th />
+			{#each planning.data.columns as column}
+				<th>{column}</th>
 			{/each}
-
-			<h1>unassigned</h1>
-			{#each chromosome.unassigned as unassigned}
-				<p>{unassigned}</p>
-			{/each} -->
-		</div>
-	</div>
-</div>
+		</tr>
+	</thead>
+	<tbody>
+		{#each planning.data.rows as row}
+			<tr>
+				<th>{row}</th>
+				{#each planning.data.columns as column}
+					<td>{planning.data.cells[row][column]}</td>
+				{/each}
+			</tr>
+		{/each}
+	</tbody>
+</table>
