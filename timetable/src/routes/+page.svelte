@@ -1,65 +1,9 @@
 <script lang="ts">
-	import { Algorithm } from '$lib/logic/algorithmv2/algorithm';
-	import type { Permutation, Planning } from '$lib/logic/algorithmv2/types';
-	import { isPatient } from '$lib/logic/algorithmv2/permutations/utilities';
-	import type { Day, Patient, Slot, Therapist } from '$lib/logic/domain/types';
-	import { map } from 'ramda';
-
-	const days: Day[] = [
-		{
-			id: 1,
-			label: 'M'
-		},
-		{
-			id: 2,
-			label: 'T'
-		},
-		{
-			id: 3,
-			label: 'W'
-		},
-		{
-			id: 4,
-			label: 'T'
-		},
-		{
-			id: 5,
-			label: 'F'
-		}
-	];
-
-	const slots: Slot[] = [
-		{
-			group: 1,
-			id: 1,
-			label: '9-10'
-		},
-		{
-			group: 1,
-			id: 2,
-			label: '10-11'
-		},
-		{
-			group: 1,
-			id: 3,
-			label: '11-12'
-		},
-		{
-			group: 2,
-			id: 4,
-			label: '13-14'
-		},
-		{
-			group: 2,
-			id: 5,
-			label: '14-15'
-		},
-		{
-			group: 2,
-			id: 6,
-			label: '15-16'
-		}
-	];
+	import PlanningCard from '$lib/components/planning/planning-card.svelte';
+	import { Days, Slots } from '$lib/data/data';
+	import { Algorithm } from '$lib/logic/algorithm/algorithm';
+	import type { Planning } from '$lib/logic/algorithm/types';
+	import type { Patient, Therapist } from '$lib/logic/domain/types';
 
 	const therapists: Therapist[] = [
 		{
@@ -502,43 +446,9 @@
 	];
 
 	console.time('handle');
-	const algo = new Algorithm(days, slots, therapists, patients);
-	const planning: Planning = algo.execute(days[0], 250);
+	const algo = new Algorithm(Days, Slots, therapists, patients);
+	const planning: Planning = algo.execute(Days[0], 250);
 	console.timeEnd('handle');
 </script>
 
-<p>day: {planning.day}</p>
-<p>fitness: {planning.fitness}</p>
-<p>
-	unassigned:
-	{#each planning.unassigned as unassigned}
-		<span>{unassigned}, </span>
-	{/each}
-</p>
-<p>
-	insufficient:
-	{#each planning.insufficient as insufficient}
-		<span>{insufficient}, </span>
-	{/each}
-</p>
-
-<table>
-	<thead>
-		<tr>
-			<th />
-			{#each planning.data.columns as column}
-				<th>{column}</th>
-			{/each}
-		</tr>
-	</thead>
-	<tbody>
-		{#each planning.data.rows as row}
-			<tr>
-				<th>{row}</th>
-				{#each planning.data.columns as column}
-					<td>{planning.data.cells[row][column]}</td>
-				{/each}
-			</tr>
-		{/each}
-	</tbody>
-</table>
+<PlanningCard {planning} />
