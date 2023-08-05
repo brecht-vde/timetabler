@@ -1,4 +1,4 @@
-import type { Day, Slot } from '$lib/logic/domain/types';
+import type { Availability, Day, Slot } from '$lib/logic/domain/types';
 
 export const Slots: Slot[] = [
 	{ id: 1, label: '09-10', group: 1 },
@@ -15,4 +15,157 @@ export const Days: Day[] = [
 	{ id: 3, label: 'W' },
 	{ id: 4, label: 'T' },
 	{ id: 5, label: 'F' }
+];
+
+export const Availabilities: Availability[] = [
+	{
+		day: 1,
+		slot: 1,
+		available: true
+	},
+	{
+		day: 1,
+		slot: 2,
+		available: true
+	},
+	{
+		day: 1,
+		slot: 3,
+		available: true
+	},
+	{
+		day: 1,
+		slot: 4,
+		available: true
+	},
+	{
+		day: 1,
+		slot: 5,
+		available: true
+	},
+	{
+		day: 1,
+		slot: 6,
+		available: true
+	},
+	{
+		day: 2,
+		slot: 1,
+		available: true
+	},
+	{
+		day: 2,
+		slot: 2,
+		available: true
+	},
+	{
+		day: 2,
+		slot: 3,
+		available: true
+	},
+	{
+		day: 2,
+		slot: 4,
+		available: true
+	},
+	{
+		day: 2,
+		slot: 5,
+		available: true
+	},
+	{
+		day: 2,
+		slot: 6,
+		available: true
+	},
+	{
+		day: 3,
+		slot: 1,
+		available: true
+	},
+	{
+		day: 3,
+		slot: 2,
+		available: true
+	},
+	{
+		day: 3,
+		slot: 3,
+		available: true
+	},
+	{
+		day: 3,
+		slot: 4,
+		available: false
+	},
+	{
+		day: 3,
+		slot: 5,
+		available: false
+	},
+	{
+		day: 3,
+		slot: 6,
+		available: false
+	},
+	{
+		day: 4,
+		slot: 1,
+		available: true
+	},
+	{
+		day: 4,
+		slot: 2,
+		available: true
+	},
+	{
+		day: 4,
+		slot: 3,
+		available: true
+	},
+	{
+		day: 4,
+		slot: 4,
+		available: true
+	},
+	{
+		day: 4,
+		slot: 5,
+		available: true
+	},
+	{
+		day: 4,
+		slot: 6,
+		available: true
+	},
+	{
+		day: 5,
+		slot: 1,
+		available: true
+	},
+	{
+		day: 5,
+		slot: 2,
+		available: true
+	},
+	{
+		day: 5,
+		slot: 3,
+		available: true
+	},
+	{
+		day: 5,
+		slot: 4,
+		available: true
+	},
+	{
+		day: 5,
+		slot: 5,
+		available: true
+	},
+	{
+		day: 5,
+		slot: 6,
+		available: true
+	}
 ];

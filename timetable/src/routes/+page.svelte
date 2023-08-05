@@ -1,6 +1,7 @@
 <script lang="ts">
+	import AvailabilityTable from '$lib/components/availabilities/availability-table.svelte';
 	import PlanningCard from '$lib/components/planning/planning-card.svelte';
-	import { Days, Slots } from '$lib/data/data';
+	import { Availabilities, Days, Slots } from '$lib/data/data';
 	import { Algorithm } from '$lib/logic/algorithm/algorithm';
 	import type { Planning } from '$lib/logic/algorithm/types';
 	import { Therapist, Patient } from '$lib/logic/domain/types';
@@ -437,3 +438,4 @@
 </script>
 
 <PlanningCard {planning} />
+<AvailabilityTable availabilities={Availabilities} />
