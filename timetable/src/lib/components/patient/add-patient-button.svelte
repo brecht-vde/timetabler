@@ -6,7 +6,6 @@
 		const patient: Patient = Patient.createPatient('something', []);
 		createPatient(patient);
 	};
-    
 </script>
 
 <button type="button" class="btn variant-filled-primary" on:click={onAddPatientClick}>+</button>
