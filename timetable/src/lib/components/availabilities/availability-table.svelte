@@ -12,6 +12,7 @@
 	import { createEventDispatcher } from 'svelte';
 
 	// Variables
+	export let label: string;
 	export let availabilities: Availability[];
 
 	// Logic
@@ -48,6 +49,9 @@
 	};
 </script>
 
+<div>
+	{label}
+</div>
 <div class="table-container">
 	<table class="table table-compact">
 		<thead>
