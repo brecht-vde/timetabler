@@ -14,7 +14,15 @@
 		<PlanningTable grid={planning.data} />
 	</section>
 	<footer class="card-footer">
-		<PlanningList label="insufficient" items={planning.insufficient} />
-		<PlanningList label="unassigned" items={planning.unassigned} />
+		<PlanningList
+			style="variant-ghost-warning"
+			tooltip="These patients only got assigned therapy once."
+			items={planning.insufficient}
+		/>
+		<PlanningList
+			style="variant-ghost-error"
+			tooltip="These patients did not get assigned any therapy."
+			items={planning.unassigned}
+		/>
 	</footer>
 </div>
