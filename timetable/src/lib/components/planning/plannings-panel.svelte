@@ -6,10 +6,11 @@
 	import { planningsStore } from '$lib/stores/plannings-store';
 	import { patientsStore } from '$lib/stores/patients-store';
 	import { therapistsStore } from '$lib/stores/therapists-store';
-	import { map } from 'ramda';
+	import { any, difference, forEach, map } from 'ramda';
 	import PlanningCard from './planning-card.svelte';
 	import type { Day } from '$lib/logic/domain/types';
 	import { setPlannings } from '$lib/stores/plannings-store';
+	import { lockStore } from '$lib/stores/lock-store';
 
 	const onGeneratePlanning = () => {
 		const algorithm: Algorithm = new Algorithm(
@@ -19,10 +20,19 @@
 			Object.values($patientsStore)
 		);
 
-		const plannings = map((d: Day) => {
+		const plannings: Planning[] = [];
+
+		forEach((d: Day) => {
+			if (any((id: number) => d.id === id, $lockStore)) return;
+
 			const planning: Planning = algorithm.execute(d, 100);
-			return planning;
+			plannings.push(planning);
 		}, Days);
+
+		// const plannings = map((d: Day) => {
+		// 	const planning: Planning = algorithm.execute(d, 100);
+		// 	return planning;
+		// }, Days);
 
 		setPlannings(plannings);
 	};
