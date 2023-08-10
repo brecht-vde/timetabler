@@ -52,7 +52,7 @@
 
 <div class="card">
 	<header class="card-header">
-		<div class="flex flex-row gap-4">
+		<div class="flex flex-row gap-4 justify-between">
 			<InteractiveLabel placeholder="Therapist" on:click={onUpdateTherapist} bind:value={label} />
 			<div>
 				<Button class="btn btn-icon btn-icon-sm variant-ghost-error" on:click={onDeleteTherapist}>

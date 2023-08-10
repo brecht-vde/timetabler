@@ -28,7 +28,6 @@ const selectPermutations = (
 	combined.push(...remaining);
 
 	const sorted = sortBySlotThenByTherapist(combined);
-
 	return sorted;
 };
 
