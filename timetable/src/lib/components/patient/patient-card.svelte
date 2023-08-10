@@ -4,6 +4,7 @@
 	import AvailabilityTable from '../availabilities/availability-table.svelte';
 	import Button from '../common/button.svelte';
 	import InteractiveLabel from '../common/interactive-label.svelte';
+	import { Trash2 } from 'lucide-svelte';
 
 	// Variables
 	export let patient: Patient;
@@ -27,19 +28,17 @@
 <div class="card">
 	<header class="card-header">
 		<div class="flex flex-row gap-4">
-			<InteractiveLabel
-				placeholder="Patient"
-				on:click={onUpdatePatient}
-				bind:value={label}
-				actionLabel="save"
-			/>
+			<InteractiveLabel placeholder="Patient" on:click={onUpdatePatient} bind:value={label} />
 			<div>
-				<Button class="btn btn-sm variant-ghost-error" on:click={onDeletePatient}>X</Button>
+				<Button class="btn btn-icon btn-icon-sm variant-ghost-error" on:click={onDeletePatient}>
+					<Trash2 class="icon-sm" />
+				</Button>
 			</div>
 		</div>
 	</header>
 	<section class="p-4">
 		<AvailabilityTable
+			label="Availability"
 			availabilities={patient.availabilities}
 			on:availabilitychanged={(e) => onAvailabilityChanged(patient, e.detail.availability)}
 		/>
