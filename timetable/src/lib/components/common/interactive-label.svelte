@@ -1,8 +1,8 @@
 <script lang="ts">
+	import { Save } from 'lucide-svelte';
 	import Button from './button.svelte';
 	import Textbox from './textbox.svelte';
 
-	export let actionLabel: string;
 	export let placeholder: string;
 	export let value: string;
 	let editMode: boolean = false;
@@ -19,18 +19,17 @@
 			bind:value
 			class="input variant-transparent p-1"
 			on:focus={() => onToggleEditMode(true)}
-			on:blur={() => onToggleEditMode(false)}
 		/>
 	</div>
 
 	{#if editMode}
 		<div>
 			<Button
-				class="btn btn-sm variant-filled-secondary"
+				class="btn btn-icon btn-icon-sm variant-ghost-primary"
 				on:click={() => onToggleEditMode(false)}
 				on:click
 			>
-				{actionLabel}
+				<Save class="icon-sm" />
 			</Button>
 		</div>
 	{/if}

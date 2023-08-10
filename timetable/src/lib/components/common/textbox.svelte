@@ -11,6 +11,5 @@
 	on:focus
 	on:blur
 	bind:value
-	on:keydown
 	{...$$restProps}
 />
