@@ -38,6 +38,11 @@ export class Algorithm {
 		}
 
 		const fittest = sortWith([descend((s: Planning) => s.fitness)], plannings);
+
+		if (day.label ==='W') {
+			console.log(JSON.stringify(fittest));
+		}
+
 		return fittest[0];
 	}
 

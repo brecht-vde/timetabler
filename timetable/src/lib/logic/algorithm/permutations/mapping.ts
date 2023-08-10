@@ -11,6 +11,7 @@ const mapToPlanning = (
 	unassigned: Patient[]
 ) => {
 	const planning: Planning = {
+		id: day.id,
 		day: day.label,
 		fitness: fitness,
 		data: mapToGrid(permutations),

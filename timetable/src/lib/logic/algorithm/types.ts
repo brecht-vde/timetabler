@@ -9,6 +9,7 @@ export interface Permutation {
 }
 
 export interface Planning {
+	id: number;
 	day: string;
 	data: Grid;
 	unassigned: string[];

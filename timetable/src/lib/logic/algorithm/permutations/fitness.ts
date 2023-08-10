@@ -17,9 +17,10 @@ const calculateFitness = (
 	return fitness;
 };
 
-const scoreUnassignedPatients = (unassigned: Patient[]) => Math.pow(unassigned.length, 2);
+const scoreUnassignedPatients = (unassigned: Patient[]) => Math.pow(unassigned.length + 50, 2);
 
-const scoreInsufficientPatients = (insufficient: Patient[]) => Math.pow(insufficient.length, 2);
+const scoreInsufficientPatients = (insufficient: Patient[]) =>
+	Math.pow(insufficient.length + 25, 2);
 
 const scoreOpenPerSlot = (permutations: Permutation[]) => {
 	const perSlot = pipe(

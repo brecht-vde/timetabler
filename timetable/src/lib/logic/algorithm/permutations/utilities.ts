@@ -18,7 +18,7 @@ export const isAvailable = (day: Day, slot: Slot, availabilities: Availability[]
 	any((a: Availability) => a.day === day.id && a.slot === slot.id && a.available, availabilities);
 
 export const isExcluded = (therapist: Therapist, patient: Patient) =>
-	any((e: number) => e === patient.id, defaultTo([], therapist.excluded));
+	any((e: string) => e === patient.id, defaultTo([], therapist.excluded));
 
 export const isPatient = (session: Patient | string) => typeof session !== 'string';
 

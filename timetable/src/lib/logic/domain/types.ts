@@ -14,14 +14,14 @@ export interface Slot {
 export class Therapist {
 	id: string;
 	label: string;
-	dedicated?: string[];
+	dedicated?: string;
 	excluded?: string[];
 	availabilities: Availability[];
 
 	private constructor(
 		label: string,
 		availabilitites: Availability[],
-		dedicated?: string[],
+		dedicated?: string,
 		excluded?: string[]
 	) {
 		this.id = uuidv4();
@@ -34,7 +34,7 @@ export class Therapist {
 	static createTherapist(
 		label: string,
 		availabilities: Availability[],
-		dedicated?: string[],
+		dedicated?: string,
 		excluded?: string[]
 	) {
 		return new Therapist(label, availabilities, dedicated, excluded);
