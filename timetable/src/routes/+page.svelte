@@ -1,5 +1,7 @@
 <script lang="ts">
 	import PatientsPanel from '$lib/components/patient/patients-panel.svelte';
+	import PlanningsPanel from '$lib/components/planning/plannings-panel.svelte';
+	import TherapistsPanel from '$lib/components/therapist/therapists-panel.svelte';
 	import { Tab, TabGroup } from '@skeletonlabs/skeleton';
 
 	let current: number = 0;
@@ -21,9 +23,9 @@
 		{#if current === 0}
 			<PatientsPanel />
 		{:else if current === 1}
-			Therapist Panel
+			<TherapistsPanel />
 		{:else if current === 2}
-			Planning Panel
+			<PlanningsPanel />
 		{/if}
 	</svelte:fragment>
 </TabGroup>
