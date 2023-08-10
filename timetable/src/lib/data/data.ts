@@ -1,3 +1,4 @@
+import type { Planning } from '$lib/logic/algorithm/types';
 import type { Availability, Day, Slot } from '$lib/logic/domain/types';
 
 export const Slots: Slot[] = [
@@ -167,5 +168,68 @@ export const Availabilities: Availability[] = [
 		day: 5,
 		slot: 6,
 		available: true
+	}
+];
+
+export const Plannings: Planning[] = [
+	{
+		id: Days[0].id,
+		day: Days[0].label,
+		data: {
+			cells: {},
+			columns: [],
+			rows: []
+		},
+		fitness: 0,
+		insufficient: [],
+		unassigned: []
+	},
+	{
+		id: Days[1].id,
+		day: Days[1].label,
+		data: {
+			cells: {},
+			columns: [],
+			rows: []
+		},
+		fitness: 0,
+		insufficient: [],
+		unassigned: []
+	},
+	{
+		id: Days[2].id,
+		day: Days[2].label,
+		data: {
+			cells: {},
+			columns: [],
+			rows: []
+		},
+		fitness: 0,
+		insufficient: [],
+		unassigned: []
+	},
+	{
+		id: Days[3].id,
+		day: Days[3].label,
+		data: {
+			cells: {},
+			columns: [],
+			rows: []
+		},
+		fitness: 0,
+		insufficient: [],
+		unassigned: []
+	},
+	{
+		id: Days[4].id,
+		day: Days[4].label,
+		data: {
+			cells: {},
+			columns: [],
+			rows: []
+		},
+		fitness: 0,
+		insufficient: [],
+		unassigned: []
 	}
 ];
