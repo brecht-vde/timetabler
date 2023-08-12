@@ -1,4 +1,13 @@
-/*place global styles here */
+@font-face {
+	font-family: 'Caveat';
+	src: url('/fonts/Caveat-VariableFont_wght.ttf');
+}
+
+@font-face {
+	font-family: 'Sofia';
+	src: url('/fonts/SofiaSansSemiCondensed-VariableFont_wght.ttf');
+}
+
 html,
 body {
 	@apply h-full overflow-hidden;
@@ -30,6 +39,10 @@ body {
 
 .icon-sm {
 	@apply w-4 h-4;
+}
+
+.link-socials {
+	@apply btn btn-icon btn-icon-sm bg-surface-50 text-secondary-500 dark:text-secondary-500 drop-shadow-md;
 }
 
 .checkbox {

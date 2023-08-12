@@ -14,7 +14,7 @@
 	flex="flex-1 lg:flex-none"
 	rounded="rounded-xl"
 	border=""
-	regionList="gap-4"	
+	regionList="gap-4"
 >
 	<Tab bind:group={current} value={0} name="tab1">Patients</Tab>
 	<Tab bind:group={current} value={1} name="tab2">Therapists</Tab>

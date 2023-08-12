@@ -8,20 +8,33 @@
 	import { AppShell, LightSwitch } from '@skeletonlabs/skeleton';
 	import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
+	import { ExternalLink, Github, Linkedin } from 'lucide-svelte';
 	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
 </script>
 
 <AppShell>
 	<svelte:fragment slot="header">
+		<div
+			class="w-full bg-secondary-300 dark:bg-secondary-500 text-on-tertiary-token dark:text-on-secondary-token"
+		>
+			<div class="page-container flex flex-row justify-center gap-4 p-2">
+				<a href="https://github.com/brecht-vde/timetabler" target="_blank" class="link-socials">
+					<Github class="icon-sm" />
+				</a>
+				<a href="https://www.linkedin.com/in/brechtvanderelst" target="_blank" class="link-socials">
+					<Linkedin class="icon-sm" />
+				</a>
+				<a href="https://www.vanderelst.dev" target="_blank" class="link-socials">
+					<ExternalLink class="icon-sm" />
+				</a>
+			</div>
+		</div>
 		<div class="page-container flex flex-row justify-between p-4">
-			<h1 class="h3">Timetabler</h1>
+			<h1 class="h2">Timetabler</h1>
 			<LightSwitch />
 		</div>
 	</svelte:fragment>
-	<div class="page-container">
+	<div class="page-container p-4">
 		<slot />
 	</div>
-	<svelte:fragment slot="footer">
-		<div class="page-container flex flex-row justify-center p-4">© Brecht Van der Elst</div>
-	</svelte:fragment>
 </AppShell>
