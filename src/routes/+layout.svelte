@@ -18,13 +18,13 @@
 			class="w-full bg-secondary-300 dark:bg-secondary-500 text-on-tertiary-token dark:text-on-secondary-token"
 		>
 			<div class="page-container flex flex-row justify-center gap-4 p-2">
-				<a href="https://github.com/brecht-vde/timetabler" target="_blank" class="link-socials">
+				<a href="https://github.com/brecht-vde/timetabler" target="_blank" class="btn btn-icon btn-icon-sm link-socials">
 					<Github class="icon-sm" />
 				</a>
-				<a href="https://www.linkedin.com/in/brechtvanderelst" target="_blank" class="link-socials">
+				<a href="https://www.linkedin.com/in/brechtvanderelst" target="_blank" class="btn btn-icon btn-icon-sm link-socials">
 					<Linkedin class="icon-sm" />
 				</a>
-				<a href="https://www.vanderelst.dev" target="_blank" class="link-socials">
+				<a href="https://www.vanderelst.dev" target="_blank" class="btn btn-icon btn-icon-sm link-socials">
 					<ExternalLink class="icon-sm" />
 				</a>
 			</div>
