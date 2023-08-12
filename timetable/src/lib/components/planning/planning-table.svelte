@@ -25,11 +25,11 @@
 									<MinusCircle class="icon-sm" />
 								</div>
 							{:else if grid.cells[row][column] === 'O'}
-								<div class="badge-icon variant-ghost-success">
+								<div class="badge-icon variant-ghost-primary">
 									<PlusCircle class="icon-sm" />
 								</div>
 							{:else if grid.cells[row][column] === 'P'}
-								<div class="badge-icon variant-ghost-warning">
+								<div class="badge-icon variant-ghost-secondary">
 									<ParkingCircle class="icon-sm" />
 								</div>
 							{:else}

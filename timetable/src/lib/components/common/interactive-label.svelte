@@ -25,7 +25,7 @@
 	{#if editMode}
 		<div>
 			<Button
-				class="btn btn-icon btn-icon-sm variant-ghost-primary"
+				class="btn btn-icon btn-icon-sm variant-ghost-secondary"
 				on:click={() => onToggleEditMode(false)}
 				on:click
 			>

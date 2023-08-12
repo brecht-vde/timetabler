@@ -50,7 +50,7 @@
 </script>
 
 <div>
-	{label}
+	<span class="label-sm">{label}</span>
 </div>
 <div class="table-container">
 	<table class="table table-compact">

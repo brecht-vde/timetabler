@@ -30,7 +30,7 @@
 		<div class="flex flex-row gap-4 justify-between">
 			<InteractiveLabel placeholder="Patient" on:click={onUpdatePatient} bind:value={label} />
 			<div>
-				<Button class="btn btn-icon btn-icon-sm variant-ghost-error" on:click={onDeletePatient}>
+				<Button class="btn btn-icon btn-icon-sm variant-ghost-tertiary" on:click={onDeletePatient}>
 					<Trash2 class="icon-sm" />
 				</Button>
 			</div>

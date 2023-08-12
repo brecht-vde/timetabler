@@ -12,7 +12,7 @@
 
 <div class="panel-container-columns">
 	<div>
-		<Button class="btn btn-sm variant-filled-secondary" on:click={onCreateTherapist}>+add</Button>
+		<Button class="btn btn-sm variant-filled-secondary" on:click={onCreateTherapist}>Add</Button>
 	</div>
 	<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-4">
 		{#each Object.values($therapistsStore) as therapist (therapist.id)}

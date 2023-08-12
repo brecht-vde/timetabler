@@ -42,7 +42,7 @@
 </script>
 
 <div>
-	{label}
+	<span class="label-sm">{label}</span>
 </div>
 <div class="grid grid-cols-2">
 	{#each Object.values($patientsStore) as patient}

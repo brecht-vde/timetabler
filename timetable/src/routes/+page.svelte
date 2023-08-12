@@ -9,12 +9,12 @@
 
 <TabGroup
 	justify="justify-center"
-	active="variant-filled-primary"
-	hover="variant-outline-primary hover:variant-soft-primary"
+	active="variant-filled-primary font-bold"
+	hover="font-bold variant-outline-primary hover:variant-soft-primary"
 	flex="flex-1 lg:flex-none"
 	rounded="rounded-xl"
 	border=""
-	regionList="gap-4"
+	regionList="gap-4"	
 >
 	<Tab bind:group={current} value={0} name="tab1">Patients</Tab>
 	<Tab bind:group={current} value={1} name="tab2">Therapists</Tab>

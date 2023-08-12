@@ -12,7 +12,7 @@
 
 <div class="panel-container-columns">
 	<div>
-		<Button class="btn btn-sm variant-filled-secondary" on:click={onCreatePatient}>+add</Button>
+		<Button class="btn btn-sm variant-filled-secondary" on:click={onCreatePatient}>Add</Button>
 	</div>
 	<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-4">
 		{#each Object.values($patientsStore) as patient (patient.id)}

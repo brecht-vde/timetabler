@@ -45,12 +45,12 @@
 	</section>
 	<footer class="card-footer">
 		<PlanningList
-			style="variant-ghost-warning"
+			style="variant-ghost-secondary"
 			tooltip="These patients only got assigned therapy once."
 			items={planning.insufficient}
 		/>
 		<PlanningList
-			style="variant-ghost-error"
+			style="variant-ghost-primary"
 			tooltip="These patients did not get assigned any therapy."
 			items={planning.unassigned}
 		/>

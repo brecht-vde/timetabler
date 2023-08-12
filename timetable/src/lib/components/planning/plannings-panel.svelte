@@ -41,7 +41,7 @@
 <div class="panel-container-columns">
 	<div>
 		<Button class="btn btn-sm variant-filled-secondary" on:click={onGeneratePlanning}
-			>generate</Button
+			>Generate</Button
 		>
 	</div>
 	<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
