@@ -3,12 +3,13 @@
 	import { SlideToggle } from '@skeletonlabs/skeleton';
 	import PlanningList from './planning-list.svelte';
 	import PlanningTable from './planning-table.svelte';
-	import { addLock, removeLock } from '$lib/stores/lock-store';
+	import { addLock, removeLock, lockStore } from '$lib/stores/lock-store';
 	import { Lock, Unlock } from 'lucide-svelte';
+	import { any } from 'ramda';
 
 	export let planning: Planning;
 
-	let checked: boolean = false;
+	let checked: boolean = any((id: number) => id === planning.id, $lockStore);
 
 	const onLockChange = () => {
 		if (checked) {
