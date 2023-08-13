@@ -11,11 +11,11 @@ export const Slots: Slot[] = [
 ];
 
 export const Days: Day[] = [
-	{ id: 1, label: 'M' },
-	{ id: 2, label: 'T' },
-	{ id: 3, label: 'W' },
-	{ id: 4, label: 'T' },
-	{ id: 5, label: 'F' }
+	{ id: 1, label: 'M', longlabel: 'Monday' },
+	{ id: 2, label: 'T', longlabel: 'Tuesday' },
+	{ id: 3, label: 'W', longlabel: 'Wednesday' },
+	{ id: 4, label: 'T', longlabel: 'Thursday' },
+	{ id: 5, label: 'F', longlabel: 'Friday' }
 ];
 
 export const Availabilities: Availability[] = [

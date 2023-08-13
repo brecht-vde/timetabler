@@ -15,7 +15,7 @@ const gdprDrawerSettings: DrawerSettings = {
 const infoDrawerSettings: DrawerSettings = {
 	id: 'infoDrawer',
 	position: 'left',
-	width: 'w-96',
+	width: 'w-full md:w-96',
 	bgBackdrop: 'bg-none',
 	bgDrawer:
 		'bg-gradient-to-t from-surface-100 to-surface-50 dark:from-surface-700 dark:to-surface-900',

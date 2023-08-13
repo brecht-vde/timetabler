@@ -18,11 +18,13 @@
 	} from '@skeletonlabs/skeleton';
 	import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
-	import { Cookie, ExternalLink, Github, Info, Linkedin } from 'lucide-svelte';
+	import { Cookie, ExternalLink, Github, Info, Linkedin, XCircle } from 'lucide-svelte';
 	import { gdprDrawerSettings, infoDrawerSettings } from '$lib/data/drawers';
 	import Button from '$lib/components/common/button.svelte';
 	import GdprPanel from '$lib/components/gdpr/gdpr-panel.svelte';
 	import InfoPanel from '$lib/components/info/info-panel.svelte';
+	import { consented } from '$lib/stores/gdpr-store';
+	import { onMount } from 'svelte';
 
 	inject({ mode: dev ? 'development' : 'production' });
 	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
@@ -30,14 +32,29 @@
 	const openDrawer = (settings: DrawerSettings) => {
 		drawerStore.open(settings);
 	};
+
+	const closeDrawer = () => {
+		drawerStore.close();
+	};
+
+	onMount(() => {
+		if (!consented()) {
+			openDrawer(gdprDrawerSettings);
+		}
+	});
 </script>
 
 <Drawer>
-	{#if $drawerStore.id === gdprDrawerSettings.id}
-		<GdprPanel />
-	{:else if $drawerStore.id === infoDrawerSettings.id}
-		<InfoPanel />
-	{/if}
+	<div class="space-y-4">
+		<div class="flex flex-row justify-end">
+			<Button on:click={closeDrawer}><XCircle class="icon-sm" /></Button>
+		</div>
+		{#if $drawerStore.id === gdprDrawerSettings.id}
+			<GdprPanel />
+		{:else if $drawerStore.id === infoDrawerSettings.id}
+			<InfoPanel />
+		{/if}
+	</div>
 </Drawer>
 <AppShell>
 	<svelte:fragment slot="header">

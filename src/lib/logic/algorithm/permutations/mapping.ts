@@ -12,7 +12,7 @@ const mapToPlanning = (
 ) => {
 	const planning: Planning = {
 		id: day.id,
-		day: day.label,
+		day: day.longlabel,
 		fitness: fitness,
 		data: mapToGrid(permutations),
 		insufficient: mapToNames(insufficient),
