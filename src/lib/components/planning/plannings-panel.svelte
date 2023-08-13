@@ -29,11 +29,6 @@
 			plannings.push(planning);
 		}, Days);
 
-		// const plannings = map((d: Day) => {
-		// 	const planning: Planning = algorithm.execute(d, 100);
-		// 	return planning;
-		// }, Days);
-
 		setPlannings(plannings);
 	};
 </script>
@@ -46,7 +41,9 @@
 	</div>
 	<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
 		{#each $planningsStore as planning}
-			<PlanningCard {planning} />
+			{#if planning?.data?.cells && Object.keys(planning.data.cells).length > 0}
+				<PlanningCard {planning} />
+			{/if}
 		{/each}
 	</div>
 </div>

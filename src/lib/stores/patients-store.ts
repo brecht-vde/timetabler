@@ -2,10 +2,13 @@ import type { Availability, Patient } from '$lib/logic/domain/types';
 import { localStorageStore } from '@skeletonlabs/skeleton';
 import { map } from 'ramda';
 import type { Writable } from 'svelte/store';
+import { consented } from './gdpr-store';
 
 const patientsStore: Writable<{ [id: string]: Patient }> = localStorageStore('patientsStore', {});
 
 const createPatient = (patient: Patient) => {
+	if (!consented()) return;
+
 	patientsStore.update((current) => ({
 		...current,
 		[patient.id]: patient
@@ -13,6 +16,8 @@ const createPatient = (patient: Patient) => {
 };
 
 const updatePatient = (id: string, updates: Partial<Patient>) => {
+	if (!consented()) return;
+
 	patientsStore.update((current) => ({
 		...current,
 		[id]: { ...current?.[id], ...updates }
@@ -20,6 +25,8 @@ const updatePatient = (id: string, updates: Partial<Patient>) => {
 };
 
 const deletePatient = (id: string) => {
+	if (!consented()) return;
+
 	patientsStore.update((current) => {
 		const { [id]: _, ...remainingPatients } = current;
 		return remainingPatients;
@@ -27,6 +34,8 @@ const deletePatient = (id: string) => {
 };
 
 const updateAvailability = (id: string, update: Availability) => {
+	if (!consented()) return;
+
 	patientsStore.update((current) => ({
 		...current,
 		[id]: {

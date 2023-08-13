@@ -6,12 +6,17 @@
 	import { addLock, removeLock, lockStore } from '$lib/stores/lock-store';
 	import { Lock, Unlock } from 'lucide-svelte';
 	import { any } from 'ramda';
+	import { consented } from '$lib/stores/gdpr-store';
 
 	export let planning: Planning;
 
 	let checked: boolean = any((id: number) => id === planning.id, $lockStore);
 
 	const onLockChange = () => {
+		if (!consented()) {
+			checked = !checked;
+		}
+
 		if (checked) {
 			addLock(planning.id);
 		} else {
