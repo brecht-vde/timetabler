@@ -51,7 +51,7 @@
 			/>).
 		</li>
 		<li>
-			A therapist may also have a special a special session (<ParkingCircle
+			A therapist may also have a special session (<ParkingCircle
 				class="icon-sm inline"
 			/>) this should occur max once a day.
 		</li>
