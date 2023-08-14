@@ -42,8 +42,8 @@
 		<li>
 			There are 2 sessions per day for each patient, one in the morning and one in the afternoon.
 		</li>
-		<li>A therapist should not see the same patient twice in a day.</li>
-		<li>When a therapist has a dedicated patient, they must see them once in a day.</li>
+		<li>A therapist should not see the same patient twice a day.</li>
+		<li>When a therapist has a dedicated patient, they must see them once a day.</li>
 		<li>When a therapist has an excluded patient, they must not see them at all.</li>
 		<li>
 			If a therapist is not assigned, they'll be marked as open (<PlusCircle
